@@ -1,18 +1,16 @@
-# MetaBridge: AI-Powered Cross-Platform Asset Translator  
+# MetaBridge: DeepSeek-Powered AI for Cross-Platform 3D Asset Translation in the Metaverse
 
-DeepSeek Tool - Metaverse & Machine Learning
+🚀 **AI-powered DeepSeek-based tool for seamless 3D asset conversion in the Metaverse**  
 
-This project demonstrates the integration of the **DeepSeek tool**, **Metaverse technologies**, and **Machine Learning (ML)** to create innovative solutions.
+MetaBridge is an **AI-driven, DeepSeek-powered** tool that enables **cross-platform 3D asset translation** with **advanced automation, machine learning, and Metaverse integration**.  
 
-## Overview  
-MetaBridge is an AI-powered tool for seamless 3D asset conversion and processing across multiple formats. It automates tasks such as asset metadata extraction, format conversion, API integration, and batch processing.  
+## **🌍 Key Features**  
+✅ **DeepSeek AI-Enhanced**: Utilizes DeepSeek models for **metadata extraction & smart asset translation**.  
+✅ **Metaverse-Ready**: Ensures seamless compatibility across **VR, AR, NFT, and gaming ecosystems**.  
+✅ **Cross-Platform Format Conversion**: Supports **OBJ, STL, FBX, GLTF, and USDZ**.  
+✅ **Automated Processing**: Batch-processing pipeline for **high-efficiency asset conversion**.  
 
-## Features
-- Advanced analytics using the DeepSeek tool.
-- Incorporates Metaverse technologies for immersive experiences.
-- Machine learning models to enhance predictions and insights.
-
-## Project Structure
+## **📁 Project Structure**
 
 📂 MetaBridge
 │── 📂 assets (Stores sample assets and resources)
@@ -27,7 +25,7 @@ MetaBridge is an AI-powered tool for seamless 3D asset conversion and processing
 
 ## Requirements
 - Python 3.9 or higher
-- Libraries (see `requirements.txt`)
+- Dependencies: **Trimesh, Requests, PyTest, DeepSeek API SDK** (`requirements.txt`)
 
 ## Getting Started
 1. Clone this repository.
@@ -37,6 +35,7 @@ MetaBridge is an AI-powered tool for seamless 3D asset conversion and processing
 
 ## Installation  
 To set up the project, clone the repository and install dependencies:  
+pip install -r requirements.txt
 
 git clone https://github.com/your-repo/MetaBridge.git
 cd MetaBridge
@@ -66,10 +65,6 @@ python scripts/api_client.py
 ## License
 MIT License
 
-3. Save and close the file.  
-
----
-
 ## **2. Creating `requirements.txt` File**  
 This file lists all the necessary dependencies for running the project.
 
@@ -79,57 +74,12 @@ This file lists all the necessary dependencies for running the project.
 
 trimesh requests pytest unittest
 
-
-3. Save and close the file.
-
 ## **3. Creating `RUNNING.md` (Step-by-Step Execution Guide)**  
 This file provides detailed instructions on setting up and running the project.
 
 #### **Steps to Create:**  
 1. Open a new file and save it as `RUNNING.md`.  
 2. Add the following content:
-
-
-# Running MetaBridge Project  
-
-## Prerequisites  
-- Python 3.8 or later  
-- Git installed  
-- Pip (Python package manager) installed  
-
-## Step 1: Clone the Repository  
-
-git clone https://github.com/your-repo/MetaBridge.git
-cd MetaBridge
-
-## Step 2: Install Dependencies
-
-pip install -r requirements.txt
-
-## Step 3: Process a 3D Asset
-Run the asset processing script to extract metadata:
-
-python scripts/process_asset.py
-
-## Step 4: Convert OBJ to STL
-Convert a 3D model from OBJ to STL format:
-
-python scripts/convert_asset.py
-
-## Step 5: Run Batch Processing
-Process multiple assets at once:
-
-python scripts/batch_process.py
-
-## Step 6: Run API Client
-Upload assets via API:
-
-python scripts/api_client.py
-
-## Step 7: Run Tests
-To validate the scripts, run tests:
-
-pytest tests/
 
 Additional Information
 All processed assets are stored in the data/ folder.
