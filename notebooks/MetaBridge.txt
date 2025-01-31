@@ -1,0 +1,187 @@
+# Import required libraries
+import trimesh  # For 3D asset analysis
+import numpy as np  # For numerical operations
+from PIL import Image  # For texture manipulation
+
+
+
+
+import os
+import trimesh
+
+def analyze_asset(input_file):
+    # Check if the file exists
+    if not os.path.exists(input_file):
+        raise FileNotFoundError(f"The file '{input_file}' does not exist.")
+    
+    # Load the 3D asset
+    try:
+        scene = trimesh.load(input_file)
+    except Exception as e:
+        raise ValueError(f"Failed to load the file: {e}")
+    
+    # Extract the first mesh from the scene
+    if isinstance(scene, trimesh.Scene):
+        mesh = scene.geometry[list(scene.geometry.keys())[0]]  # Get the first mesh
+    else:
+        mesh = scene  # If it's already a mesh
+    
+    # Extract metadata
+    asset_data = {
+        "vertices": len(mesh.vertices),  # Number of vertices
+        "faces": len(mesh.faces),  # Number of faces
+        "textures": None,  # Initialize textures as None
+        "animations": mesh.animation if hasattr(mesh, 'animation') else None  # Animation data
+    }
+    
+    # Handle textures for PBRMaterial
+    if hasattr(mesh.visual, 'material'):
+        material = mesh.visual.material
+        if hasattr(material, 'baseColorTexture'):
+            asset_data["textures"] = material.baseColorTexture
+        elif hasattr(material, 'image'):
+            asset_data["textures"] = material.image
+    
+    return asset_data
+
+# Test the function
+input_file = "Box.glb"  # File is in the current directory
+asset_data = analyze_asset(input_file)
+print("Asset Data:", asset_data)
+
+
+
+
+
+
+
+# Function to map asset attributes to the target platform
+def map_attributes(asset_data, target_platform):
+    # Define platform-specific requirements
+    platform_requirements = {
+        "Decentraland": {
+            "max_vertices": 10000,
+            "max_texture_resolution": 1024,
+            "supported_animations": ["glTF"]
+        },
+        "Roblox": {
+            "max_vertices": 5000,
+            "max_texture_resolution": 512,
+            "supported_animations": ["FBX"]
+        }
+    }
+
+    # Map attributes based on target platform
+    mapped_attributes = {
+        "vertices": min(asset_data["vertices"], platform_requirements[target_platform]["max_vertices"]),
+        "textures": asset_data["textures"],
+        "animations": asset_data["animations"] if asset_data["animations"] in platform_requirements[target_platform]["supported_animations"] else None
+    }
+    return mapped_attributes
+
+# Test the function
+target_platform = "Decentraland"  # Replace with your target platform
+mapped_attributes = map_attributes(asset_data, target_platform)
+print("Mapped Attributes:", mapped_attributes)
+
+
+
+
+
+
+from PIL import Image
+
+def optimize_asset(mapped_attributes, target_platform):
+    # Example: Reduce texture resolution
+    if mapped_attributes["textures"] is not None:
+        mapped_attributes["textures"] = resize_texture(mapped_attributes["textures"], target_platform)
+
+    # Example: Simplify mesh (reduce vertices)
+    if mapped_attributes["vertices"] > 10000:
+        mapped_attributes["vertices"] = simplify_mesh(mapped_attributes["vertices"])
+
+    return mapped_attributes
+
+def resize_texture(texture, target_platform):
+    # Ensure the texture is a PIL Image
+    if not isinstance(texture, Image.Image):
+        texture = Image.fromarray(texture)
+
+    # Resize based on platform requirements
+    if target_platform == "Decentraland":
+        new_size = (512, 512)
+    elif target_platform == "OtherPlatform":
+        new_size = (1024, 1024)
+    else:
+        new_size = (256, 256)
+
+    # Resize the texture
+    resized_texture = texture.resize(new_size, Image.Resampling.LANCZOS)
+    return resized_texture
+
+def simplify_mesh(vertices):
+    # Example: Reduce the number of vertices by half
+    return vertices // 2
+
+# Test the function
+# Create a dummy texture if no file is available
+dummy_texture = Image.new("RGB", (1024, 1024), color="blue")  # Create a 1024x1024 blue image
+
+mapped_attributes = {
+    "textures": dummy_texture,  # Use the dummy texture
+    "vertices": 20000
+}
+target_platform = "Decentraland"
+
+# Optimize the asset
+optimized_asset = optimize_asset(mapped_attributes, target_platform)
+print("Optimized Asset:", optimized_asset)
+
+# Optionally, save the optimized texture to a file
+optimized_asset["textures"].save("optimized_texture.png")
+print("Optimized texture saved as 'optimized_texture.png'")
+
+
+
+
+
+
+# Function to generate the output file
+def generate_output(optimized_asset, target_platform):
+    # Generate output file based on target platform
+    output_file = f"output_{target_platform}.glb"
+    
+    # Placeholder for file generation logic
+    print(f"Generated {output_file} for {target_platform}")
+    return output_file
+
+# Test the function
+output_file = generate_output(optimized_asset, target_platform)
+print("Output File:", output_file)
+
+
+
+
+
+# Main function to tie everything together
+def main():
+    # Step 1: Input asset and target platform
+    input_file = "input_asset.glb"  # Replace with your file path
+    target_platform = "Decentraland"  # Replace with your target platform
+
+    # Step 2: Analyze asset
+    asset_data = analyze_asset(input_file)
+
+    # Step 3: Map attributes
+    mapped_attributes = map_attributes(asset_data, target_platform)
+
+    # Step 4: Optimize asset
+    optimized_asset = optimize_asset(mapped_attributes, target_platform)
+
+    # Step 5: Generate output
+    output_file = generate_output(optimized_asset, target_platform)
+    print(f"Output file generated: {output_file}")
+
+# Run the main function
+if __name__ == "__main__":
+    main()

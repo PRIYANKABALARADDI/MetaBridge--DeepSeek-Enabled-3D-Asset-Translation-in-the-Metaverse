@@ -1,0 +1,3 @@
+"asset_name,format,vertices,faces,textures",,,,
+"Sample Model,OBJ,1024,2048,sample_texture.png",,,,
+"Advanced Model,FBX,2048,4096,advanced_texture.png",,,,

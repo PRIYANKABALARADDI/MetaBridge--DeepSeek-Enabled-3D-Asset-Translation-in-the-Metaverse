@@ -1,0 +1,2 @@
+[2025-01-29 14:00:00] INFO: Converted "sample_model.obj" to "sample_model.fbx" successfully.
+[2025-01-29 14:05:30] ERROR: Texture "missing_texture.png" not found for "advanced_model.obj".
